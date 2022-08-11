@@ -18,5 +18,7 @@ runs:
       with:
         name: ${{inputs.cache-name}}
         path: ${{steps.ci-info.outputs.path}}
-    - run: cat "${{steps.ci-info.outputs.path}}/env" | sed 's|^CI_INFO_TEMP_DIR=.*$|CI_INFO_TEMP_DIR=${{steps.ci-info.outputs.path}}|' >> "$GITHUB_ENV"
+    - run: cat "$CI_INFO_TEMP_DIR/env" | sed 's|^CI_INFO_TEMP_DIR=.*$|CI_INFO_TEMP_DIR=$CI_INFO_TEMP_DIR|' >> "$GITHUB_ENV"
       shell: bash
+      env:
+        CI_INFO_TEMP_DIR: ${{steps.ci-info.outputs.path}}
