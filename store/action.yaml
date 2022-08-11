@@ -1,0 +1,23 @@
+name: store
+description: Run ci-info and save the result as artifact
+inputs:
+  cache-name:
+    description: 'cache name'
+    required: false
+    default: ci-info
+runs:
+  using: composite
+  steps:
+    - run: |
+        tempfile="$(mktemp)"
+        ci-info run | sed "s/^export //" > "${tempfile}"
+        cat "$tempfile" >> "$GITHUB_ENV"
+        . "$tempfile"
+        cp "$tempfile" "${CI_INFO_TEMP_DIR}/env"
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+    - uses: actions/upload-artifact@v3
+      with:
+        name: ci-info
+        path: ${{env.CI_INFO_TEMP_DIR}}
