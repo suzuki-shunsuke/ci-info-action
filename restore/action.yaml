@@ -1,0 +1,25 @@
+name: restore
+description: Restore ci-info result from an artifact
+inputs:
+  cache-name:
+    description: 'cache name'
+    required: false
+    default: ci-info
+  path:
+    description: 'Destination path'
+    required: false
+outputs:
+  download-path:
+    value: ${{steps.download.outputs.download-path}}
+runs:
+  using: composite
+  steps:
+    - uses: actions/download-artifact@v3
+      id: download
+      with:
+        name: ${{inputs.cache-name}}
+        path: ${{inputs.path}}
+    - run: cat "$CI_INFO_TEMP_DIR/env" | sed "s|^CI_INFO_TEMP_DIR=.*$|CI_INFO_TEMP_DIR=$CI_INFO_TEMP_DIR|" >> "$GITHUB_ENV"
+      shell: bash
+      env:
+        CI_INFO_TEMP_DIR: ${{steps.download.outputs.download-path}}

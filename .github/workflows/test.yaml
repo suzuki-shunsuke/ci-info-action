@@ -1,0 +1,33 @@
+---
+name: test
+on:
+  pull_request:
+    branches: [main]
+env:
+  AQUA_LOG_COLOR: always
+jobs:
+  ci-info:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: aquaproj/aqua-installer@v1.1.1
+        with:
+          aqua_version: v1.19.1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - uses: ./store
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  test:
+    needs: ci-info
+    strategy:
+      matrix:
+        env:
+          - runs-on: windows-latest
+          - runs-on: ubuntu-latest
+    runs-on: ${{ matrix.env.runs-on }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./restore
+      - run: echo "$CI_INFO_PR_NUMBER"
