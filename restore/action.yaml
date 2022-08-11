@@ -5,24 +5,21 @@ inputs:
     description: 'cache name'
     required: false
     default: ci-info
+  path:
+    description: 'Destination path'
+    required: false
+outputs:
+  download-path:
+    value: ${{steps.download.outputs.download-path}}
 runs:
   using: composite
   steps:
-    - run: |
-        tempfile=$(mktemp)
-        rm "$tempfile"
-        echo "::set-output name=path::${tempfile}"
-      id: ci-info
-      shell: bash
     - uses: actions/download-artifact@v3
+      id: download
       with:
         name: ${{inputs.cache-name}}
-        path: ${{steps.ci-info.outputs.path}}
-    - run: ls "$CI_INFO_TEMP_DIR"
+        path: ${{inputs.path}}
+    - run: cat "$CI_INFO_TEMP_DIR/env" | sed "s|^CI_INFO_TEMP_DIR=.*$|CI_INFO_TEMP_DIR=$CI_INFO_TEMP_DIR|" >> "$GITHUB_ENV"
       shell: bash
       env:
-        CI_INFO_TEMP_DIR: ${{steps.ci-info.outputs.path}}
-    - run: cat "$CI_INFO_TEMP_DIR/env" | sed 's|^CI_INFO_TEMP_DIR=.*$|CI_INFO_TEMP_DIR=$CI_INFO_TEMP_DIR|' >> "$GITHUB_ENV"
-      shell: bash
-      env:
-        CI_INFO_TEMP_DIR: ${{steps.ci-info.outputs.path}}
+        CI_INFO_TEMP_DIR: ${{steps.download.outputs.download-path}}
