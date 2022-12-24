@@ -2,9 +2,13 @@ name: store
 description: Run ci-info and save the result as artifact
 inputs:
   cache-name:
-    description: 'cache name'
+    description: cache name
     required: false
     default: ci-info
+  github_token:
+    description: GitHub Access Token
+    required: false
+    default: ${{ github.token }}
 runs:
   using: composite
   steps:
