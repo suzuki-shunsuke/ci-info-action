@@ -29,8 +29,6 @@ jobs:
 
       # Run ci-info and store the result as an artifact
       - uses: suzuki-shunsuke/ci-info-action/store@main
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
 
       # Refer ci-info result
       - run: echo "$CI_INFO_PR_NUMBER"
