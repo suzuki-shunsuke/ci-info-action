@@ -10,11 +10,12 @@ inputs:
     required: false
 outputs:
   download-path:
+    description: 'Path to the downloaded artifact'
     value: ${{steps.download.outputs.download-path}}
 runs:
   using: composite
   steps:
-    - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # tag=v3.0.2
+    - uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # tag=v4.1.1
       id: download
       with:
         name: ${{inputs.cache-name}}
