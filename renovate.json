@@ -3,6 +3,6 @@
     "config:recommended",
     "helpers:pinGitHubActionDigests",
     "github>suzuki-shunsuke/renovate-config",
-    "github>aquaproj/aqua-renovate-config#2.2.0"
+    "github>aquaproj/aqua-renovate-config#2.2.1"
   ]
 }
