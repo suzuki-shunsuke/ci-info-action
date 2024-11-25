@@ -1,0 +1,54 @@
+{
+  "checksums": [
+    {
+      "id": "github_release/github.com/int128/ghcp/v1.13.5/ghcp_darwin_amd64.zip",
+      "checksum": "6728BD668888A64C71BF01D9AFBA373F38D353B79D181B1401A4E5E4B329289D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/int128/ghcp/v1.13.5/ghcp_linux_amd64.zip",
+      "checksum": "3C808E566F0B663182AD5B5DD6E6B05DC8346610EA5613EA8C22AB19F47A4493",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/int128/ghcp/v1.13.5/ghcp_windows_amd64.zip",
+      "checksum": "1A90AD7927F720EB8996AE143DF5D7AA2DF70689B7B5B9074D6FD32C244D688E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/ci-info/v2.3.1/ci-info_2.3.1_darwin_amd64.tar.gz",
+      "checksum": "12CCAC8418415E5F28012E864E1714A84636C3720F2166B9A3B27E15393870C6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/ci-info/v2.3.1/ci-info_2.3.1_darwin_arm64.tar.gz",
+      "checksum": "7FEC0B88D213986B16605DD8E64F6230E4B4FC605A0CE4C2FD9698FDC40D3E2D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/ci-info/v2.3.1/ci-info_2.3.1_linux_amd64.tar.gz",
+      "checksum": "66C78BEBE4C4B0CE28E7AA5CD06FDAB9DB12E9D4116BE9135224DEE55B94CF38",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/ci-info/v2.3.1/ci-info_2.3.1_linux_arm64.tar.gz",
+      "checksum": "5758EAC473D6BFF381761B2AA88218EE28828666E799C10E856417A89E77928C",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/ci-info/v2.3.1/ci-info_2.3.1_windows_amd64.tar.gz",
+      "checksum": "417420AB3D5CE24FBB1A8A2BAA568631DF40A8411A719908A1C1416482DDB722",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/ci-info/v2.3.1/ci-info_2.3.1_windows_arm64.tar.gz",
+      "checksum": "991CD4F64DABBB541BC26BC0E2C7B2CC50E8C4EAFA24DA4F36F2894528651A0C",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.258.1/registry.yaml",
+      "checksum": "916B8EA01CCB1A55F572CABAFF0487A4441729A61F5DDC3DD3B94ADB31E43198",
+      "algorithm": "sha256"
+    }
+  ]
+}
