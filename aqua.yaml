@@ -5,5 +5,5 @@ registries:
 - type: standard
   ref: v4.411.1 # renovate: depName=aquaproj/aqua-registry
 packages:
-- name: suzuki-shunsuke/ci-info@v2.3.6
+- name: suzuki-shunsuke/ci-info@v2.4.0
 - name: int128/ghcp@v1.15.0
