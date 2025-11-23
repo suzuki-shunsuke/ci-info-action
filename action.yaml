@@ -18,9 +18,9 @@ inputs:
   sha:
     description: Commit SHA (defaults to current commit SHA)
     required: false
-  token:
-    description: GitHub token (defaults to GITHUB_TOKEN)
-    required: false
+  github_token:
+    description: GitHub token
+    required: true
   dir:
     description: Output directory for files (defaults to temporary directory)
     required: false
