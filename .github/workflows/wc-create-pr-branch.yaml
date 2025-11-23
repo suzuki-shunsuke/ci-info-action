@@ -43,3 +43,14 @@ jobs:
 
       # Test
       - uses: ./
+        id: ci-info
+      - run: echo "hello"
+        env:
+          REPO_NAME: ${{ steps.ci-info.outputs.repo_name }}
+          IS_PR: ${{ steps.ci-info.outputs.is_pr }}
+          HAS_ASSOCIATED_PR: ${{ steps.ci-info.outputs.has_associated_pr }}
+          BASE_REF: ${{ steps.ci-info.outputs.base_ref }}
+          HEAD_REF: ${{ steps.ci-info.outputs.head_ref }}
+          PR_AUTHOR: ${{ steps.ci-info.outputs.pr_author }}
+          PR_MERGED: ${{ steps.ci-info.outputs.pr_merged }}
+          TEMP_DIR: ${{ steps.ci-info.outputs.temp_dir }}
