@@ -42,13 +42,4 @@ jobs:
           is_comment: ${{inputs.is_comment}}
 
       # Test
-      - if: github.event_name == 'pull_request' && ! github.event.pull_request.head.repo.fork
-        uses: ./
-        with:
-          token: ${{github.token}}
-      - if: github.event_name == 'pull_request' && ! github.event.pull_request.head.repo.fork
-        run: |
-          echo "PR Number: $CI_INFO_PR_NUMBER"
-          echo "Base Ref: $CI_INFO_BASE_REF"
-          echo "Head Ref: $CI_INFO_HEAD_REF"
-          cat "$CI_INFO_TEMP_DIR/pr_files.txt" | head -n 10
+      - uses: ./

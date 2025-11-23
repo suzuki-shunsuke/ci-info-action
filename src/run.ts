@@ -120,7 +120,7 @@ const setOutputsAndEnv = (
   const isPR = inputs.pr !== undefined;
   const hasAssociatedPR = prInfo !== undefined;
 
-  const setValue = (key: string, value: string | boolean | number) => {
+  const setValue = (key: string, value: any) => {
     core.setOutput(key, value);
     core.exportVariable(`${inputs.prefix}${key.toUpperCase()}`, value);
   };
