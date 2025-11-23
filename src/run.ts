@@ -45,6 +45,33 @@ const getInputs = (): Inputs => {
   return { owner, repo, pr, sha, token, dir, prefix };
 };
 
+const getPRNumberFromMergeGroup = (): number | undefined => {
+  const refName = process.env.GITHUB_REF_NAME;
+  if (!refName) {
+    return undefined;
+  }
+
+  // GITHUB_REF_NAME format for merge_group: pr-<number>-<sha>
+  // e.g., "pr-123-abc123"
+  const withoutPrefix = refName.replace(/^pr-/, "");
+  const dashIndex = withoutPrefix.indexOf("-");
+
+  if (dashIndex === -1) {
+    core.warning(`GITHUB_REF_NAME is not a valid merge_group format: ${refName}`);
+    return undefined;
+  }
+
+  const prNumberStr = withoutPrefix.substring(0, dashIndex);
+  const prNumber = parseInt(prNumberStr, 10);
+
+  if (isNaN(prNumber)) {
+    core.warning(`Failed to parse PR number from GITHUB_REF_NAME: ${refName}`);
+    return undefined;
+  }
+
+  return prNumber;
+};
+
 const getPRNumberFromSHA = async (
   octokit: ReturnType<typeof github.getOctokit>,
   owner: string,
@@ -193,6 +220,14 @@ export const main = async () => {
   let prNumber = inputs.pr;
 
   const octokit = github.getOctokit(inputs.token);
+
+  // Try to get PR number from merge_group event
+  if (!prNumber && github.context.eventName === "merge_group") {
+    core.info("Attempting to get PR number from merge_group event");
+    prNumber = getPRNumberFromMergeGroup();
+  }
+
+  // Try to get PR number from SHA
   if (!prNumber && inputs.sha) {
     prNumber = await getPRNumberFromSHA(octokit, inputs.owner, inputs.repo, inputs.sha);
   }
