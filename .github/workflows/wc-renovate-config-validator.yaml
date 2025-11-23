@@ -1,7 +1,6 @@
 ---
 name: renovate-config-validator
 on: workflow_call
-
 jobs:
   renovate-config-validator:
     # Validate Renovate Configuration by renovate-config-validator.
