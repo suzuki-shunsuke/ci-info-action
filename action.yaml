@@ -1,0 +1,55 @@
+---
+name: ci-info
+description: Collect GitHub CI environment and Pull Request information
+author: Shunsuke Suzuki
+branding:
+  icon: info
+  color: blue
+inputs:
+  owner:
+    description: Repository owner (defaults to current repository owner)
+    required: false
+  repo:
+    description: Repository name (defaults to current repository name)
+    required: false
+  pr:
+    description: Pull Request number (auto-detected from context)
+    required: false
+  sha:
+    description: Commit SHA (defaults to current commit SHA)
+    required: false
+  github_token:
+    description: GitHub token
+    required: false
+    default: ${{ github.token }}
+  dir:
+    description: Output directory for files (defaults to temporary directory)
+    required: false
+  prefix:
+    description: Environment variable prefix (defaults to CI_INFO_)
+    required: false
+    default: CI_INFO_
+outputs:
+  is_pr:
+    description: Whether PR number was explicitly provided
+  has_associated_pr:
+    description: Whether the commit is associated with a PR
+  pr_number:
+    description: Pull Request number
+  base_ref:
+    description: Base branch name
+  head_ref:
+    description: Head branch name
+  pr_author:
+    description: Pull Request author
+  pr_merged:
+    description: Whether the PR is merged
+  temp_dir:
+    description: Directory where output files are written
+  repo_owner:
+    description: Repository owner
+  repo_name:
+    description: Repository name
+runs:
+  using: "node20"
+  main: "dist/index.js"

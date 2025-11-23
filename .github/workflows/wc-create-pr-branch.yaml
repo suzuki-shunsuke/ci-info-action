@@ -1,0 +1,56 @@
+---
+name: Release (workflow call)
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: Version
+        required: true
+        type: string
+      pr:
+        description: Pull Request Number
+        required: false
+        type: string
+      is_comment:
+        description: If the comment is posted
+        required: false
+        default: false
+        type: boolean
+jobs:
+  create-pr-branch:
+    timeout-minutes: 20
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+      - run: gh pr checkout "$PR"
+        if: inputs.pr != ''
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+          PR: ${{inputs.pr}}
+      - run: npm ci
+      - run: npm run build
+
+      - uses: suzuki-shunsuke/release-js-action@23ab6d1545309c79664bc0e9aea74daf27339193 # v0.1.8-2
+        with:
+          version: ${{inputs.version}}
+          pr: ${{inputs.pr}}
+          is_comment: ${{inputs.is_comment}}
+
+      # Test
+      - uses: ./
+        id: ci-info
+      - run: echo "hello"
+        env:
+          REPO_NAME: ${{ steps.ci-info.outputs.repo_name }}
+          IS_PR: ${{ steps.ci-info.outputs.is_pr }}
+          HAS_ASSOCIATED_PR: ${{ steps.ci-info.outputs.has_associated_pr }}
+          BASE_REF: ${{ steps.ci-info.outputs.base_ref }}
+          HEAD_REF: ${{ steps.ci-info.outputs.head_ref }}
+          PR_AUTHOR: ${{ steps.ci-info.outputs.pr_author }}
+          PR_MERGED: ${{ steps.ci-info.outputs.pr_merged }}
+          TEMP_DIR: ${{ steps.ci-info.outputs.temp_dir }}
